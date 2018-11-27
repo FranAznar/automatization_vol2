@@ -1,6 +1,12 @@
 # Jenkins + Selenium grid Service
 This is about a jenkins+sonar service plus a selenium grid service plus its nodes
 
+## Execute the project
+from the dev folder execute this command
+```
+docker-compose -f ../docker-compose.yml up
+```
+
 ## Execute a standalone nodes
 ```
 java -D"webdriver.chrome.driver"="C:\WorkspaceOFI\proyectos\testing\
