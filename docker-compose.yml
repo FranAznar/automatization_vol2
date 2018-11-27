@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+
+  hub:
+    image: selenium/hub
+    ports:
+      - ${HUB_PORT}:4444
+    networks:
+    - ${NETWORK}
+
+  chrome:
+    image: selenium/node-chrome
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      NODE_MAX_INSTANCES: 2
+      NODE_MAX_NODE: 2
+    networks:
+    - ${NETWORK}
+
+  firefox:
+    image: selenium/node-firefox
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      NODE_MAX_INSTANCES: 2
+      NODE_MAX_NODE: 2
+    networks:
+    - ${NETWORK}
+
+  jenkins:
+    image: ginxo/jenkins:latest
+    ports:
+      - ${JENKINS_PORT_8080}:8080
+      - ${JENKINS_PORT_5000}:5000
+    volumes:
+      - ${JENKINS_HOME}:/var/jenkins_home
+    networks:
+    - ${NETWORK}
+
+  sonarqube:
+    image: sonarqube:latest
+    ports:
+      - ${SONAR_PORT_9000}:9000
+      - ${SONAR_PORT_9092}:9092
+    networks:
+    - ${NETWORK}
+
+networks:
+  grid_dev:
+    external: true
+  grid_prod:
+    external: true

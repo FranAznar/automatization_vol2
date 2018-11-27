@@ -1,0 +1,9 @@
+FROM jenkins/jenkins
+MAINTAINER Enrique Mingorance Cano
+
+USER root
+RUN cd /tmp
+RUN apt-get update
+RUN apt-get install -y libxss1 libappindicator1 libindicator7
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install -y ./google-chrome*.deb
